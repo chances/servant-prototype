@@ -1,13 +1,12 @@
 {-# LANGUAGE DataKinds #-}
-{-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE TypeOperators #-}
 
-module App (User, run) where
+module App (run) where
 
-import Data.Aeson
+import Models.User
+
 import Data.List
-import Data.Time.Calendar
-import GHC.Generics
+import Data.Time.Calendar (fromGregorian)
 
 import Servant
 import Web.Internal.HttpApiData (parseBoundedTextData)
@@ -20,16 +19,6 @@ data SortBy = Age | Name | Email | Registration deriving (Show, Bounded, Enum)
 instance FromHttpApiData SortBy where
     parseUrlPiece = parseBoundedTextData
     parseQueryParam = parseBoundedTextData
-
-data User = User {
-  name :: String,
-  age :: Int,
-  email :: String,
-  registrationDate :: Day
-} deriving (Show, Eq, Generic)
-
-instance FromJSON User
-instance ToJSON User
 
 sortedBy :: Ord b => [a] -> (a -> b) -> [a]
 sortedBy list projector = sortOn projector list
