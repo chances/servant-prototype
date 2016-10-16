@@ -10,4 +10,4 @@ main = do
     hSetBuffering stdout LineBuffering
     env <- getEnvironment
     let port = maybe 8080 read $ lookup "PORT" env
-    run 8080
+    run port
