@@ -1,1 +1,1 @@
-console: stack dot
+web: ./servant-tutorial
